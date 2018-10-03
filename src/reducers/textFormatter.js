@@ -1,7 +1,7 @@
 import { actionTypes } from '../actions';
 
 // state initializer
-const getState = text => ({
+export const getState = (text = '') => ({
   selectedWordIdx: null,
   selectedWord: null,
   formatting: {
@@ -11,12 +11,12 @@ const getState = text => ({
     82: new Set(['u']),
   },
   text,
-  parts: [],
+  parts: text.match(/\w+|\s+|[^\s\w]+/g) || [],
   partIsWord: [],
   synonyms: [],
 });
 
-const textFormat = (state = getState(''), action) => {
+const textFormatter = (state = getState(''), action) => {
   switch (action.type) {
     case actionTypes.ACTION_BUTTON: {
       const format = state.formatting[action.index] || new Set();
@@ -76,4 +76,4 @@ const textFormat = (state = getState(''), action) => {
   }
 };
 
-export default textFormat;
+export default textFormatter;

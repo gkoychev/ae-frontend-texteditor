@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './styles.css';
 
-class FormattedText extends Component {
+export class FormattedText extends Component {
   static propTypes = {
     selectedWord: PropTypes.string,
     selectedWordIdx: PropTypes.number,
     formatting: PropTypes.object,
     text: PropTypes.string,
+    onWordSelect: PropTypes.func,
+    parts: PropTypes.array,
+    partIsWord: PropTypes.array,
   };
 
   onWordClick = (part, idx) => {
@@ -16,8 +19,8 @@ class FormattedText extends Component {
   };
 
   getWordStyle(idx) {
-    const { selectedWordIdx } = this.props;
-    const format = this.props.formatting[idx];
+    const { selectedWordIdx, formatting } = this.props;
+    const format = formatting[idx];
     const style = {};
 
     if (selectedWordIdx === idx) style.backgroundColor = '#bbb';
